@@ -1,6 +1,6 @@
 const Poster = require('../models/posterModel');
 
-const createPoster = async(req, res)=>{
+const addPoster = async(req, res)=>{
     try {
         const { id, title, category, imageUrl, description, tags, timestamp, language } = req.body;
         const newPoster = new Poster({
@@ -60,7 +60,7 @@ const getPosters = async(req, res)=>{
 
 const getPosterById = async (req, res) => {
     try {
-        const poster = await Poster.findById(req.params.id);
+        const poster = await Poster.find(req.params);
         if (!poster) {
             return res.status(404).json({
                 status: 'error',
@@ -95,8 +95,8 @@ const getPosterById = async (req, res) => {
 // Update a poster
 const updatePoster = async (req, res) => {
     try {
-        const updatedPoster = await Poster.findByIdAndUpdate(
-            req.params.id,
+        const updatedPoster = await Poster.updateOne(
+            req.params,
             req.body,
             { new: true }
         );
@@ -134,7 +134,7 @@ const updatePoster = async (req, res) => {
 // Delete a poster
 const deletePoster = async (req, res) => {
     try {
-        const deletedPoster = await Poster.findByIdAndDelete(req.params.id);
+        const deletedPoster = await Poster.deleteOne(req.params);
         if (!deletedPoster) {
             return res.status(404).json({
                 status: 'error',
@@ -166,4 +166,4 @@ const deletePoster = async (req, res) => {
     }
 };
 
-module.exports = { createPoster, getPosters, getPosterById, updatePoster, deletePoster };
+module.exports = { addPoster, getPosters, getPosterById, updatePoster, deletePoster };
