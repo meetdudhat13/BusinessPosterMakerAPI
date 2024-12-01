@@ -11,6 +11,8 @@ connectDB();
 app.use(express.json());
 app.use('/api', posterRoutes);
 
+
+
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
