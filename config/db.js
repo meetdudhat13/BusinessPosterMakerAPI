@@ -1,8 +1,12 @@
 const mongoos = require('mongoose');
+require('dotenv').config();
+
+const mongoURL = process.env.MONGODB_URL_LOCAL
+
 
 const connectDB = async() =>{
     try{
-        await mongoos.connect('mongodb+srv://Meet:13092004@posterdb.zhywv.mongodb.net/poster_db');
+        await mongoos.connect(mongoURL);
         console.log("MongoDB connected");
     }catch(error){
         console.error("MongoDb connection error");
